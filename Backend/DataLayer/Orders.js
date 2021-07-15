@@ -36,7 +36,7 @@ class Orders {
 
     //SELECT order_detail.product_name as product from orders inner join order_detail on order_detail.id_order=orders.id_order where orders.id_order = 3
     getProductsByOrderId(req, res) {
-        const query = `SELECT order_detail.product_name as product from orders inner join order_detail on order_detail.id_order=orders.id_order where orders.id_order = ${req.params.id}`;
+        const query = `SELECT order_detail.id_order_detail as id, order_detail.product_name as product, order_detail.product_quantity as quantity from orders inner join order_detail on order_detail.id_order=orders.id_order where orders.id_order = ${req.params.id}`;
         db.query(
             query, (err, result) => {
                 this.queryResult(err, result, res);

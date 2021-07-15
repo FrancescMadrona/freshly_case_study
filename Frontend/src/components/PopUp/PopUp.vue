@@ -30,7 +30,7 @@
         <p>
             <table class="ui celled table">
                 <thead>
-                <th>Dirección</th>
+                <th>Dirección 1</th>
                 <th>Ciudad</th>
                 <th>Pais</th>
                 </thead>
@@ -40,10 +40,65 @@
                         calle lorem
                     </td>
                     <td>
-                        Madrona
+                        Barcelona
                     </td>
                     <td>
-                        21/05/32
+                        España
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>
+            <table class="ui celled table">
+                <thead>
+                <th>Dirección 2</th>
+                <th>Ciudad</th>
+                <th>Pais</th>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>
+                        sandasn
+                    </td>
+                    <td>
+                        Barcelona
+                    </td>
+                    <td>
+                        España
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>
+            <table class="ui celled table">
+                <thead>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                </thead>
+                <tbody v-for="product in products" v-bind:key="product.id">
+                    <Products
+                    v-bind:id="product.id"
+                    v-bind:product="product.product"
+                    v-bind:quantity="product.quantity"
+                    />
+                </tbody>
+            </table>
+        </p>
+        <p> 
+            <table class="ui celled table">
+                <thead>
+                <th>Estado</th>
+                <th>Precio Total</th>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>
+                        Cancelado
+                    </td>
+                    <td>
+                       200.00€
                     </td>
                     </tr>
                 </tbody>
@@ -56,14 +111,18 @@
 </template>
 
 <script>
+import Products from "./Products.vue";
 export default {
   name: "PopUp",
   props: ["id"],
-  components: {},
+  components: {
+    Products,
+  },
 
   data() {
     return {
       order: [],
+      products: [],
     };
   },
   methods: {
@@ -83,7 +142,31 @@ export default {
           }
           if (data) {
             this.order = data.data[0];
-            console.log(this.order);
+          }
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+          console.error("There was an error!", error);
+        });
+    },
+    getProducts(id) {
+      const uri = `http://localhost:3000/api/products/order/${id}`;
+      fetch(uri)
+        .then(async (response) => {
+          const data = await response.json();
+          // check for error response
+          if (!response.ok) {
+            // get error message from body or default to response statusText
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+          }
+          if (data) {
+            this.products = data.data;
+            console.log(this.products);
+            console.log("one prodc->", this.products[0].product);
+            console.log("one quantity->", this.products[0].quantity);
+
+
           }
         })
         .catch((error) => {
@@ -93,8 +176,8 @@ export default {
     },
   },
   created() {
-    console.log("POPUP->", this.id);
     this.getOrder(this.id);
+    this.getProducts(this.id);
   },
   updated() {
     //this.getOrder(this.id);
@@ -129,7 +212,7 @@ a {
   position: fixed;
   left: 50%;
   transform: translate(-50%, 0);
-  top: 50%;
+  /* top: 50%; */
 }
 
 .disable-outside-clicks {
