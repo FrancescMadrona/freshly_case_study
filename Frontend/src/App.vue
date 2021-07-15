@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <OrdersTable v-on:triggerInfo="triggerInfo" />
     <div v-if="isPopUp">
-      <PopUp v-bind:id="id" />
+      <PopUp v-bind:id="id" v-on:closePopUp="closePopUp" />
+    </div>
+    <div class="container" v-bind:class="{shadow: isShadow}">
+      <OrdersTable v-on:triggerInfo="triggerInfo" />
     </div>
   </div>
 </template>
@@ -21,13 +23,18 @@ export default {
     return {
       id: -1,
       isPopUp: false,
+      isShadow: false,
     };
   },
   methods: {
+    closePopUp() {
+      this.isPopUp = false;
+      this.isShadow = false;
+    },
     triggerInfo(id) {
-      console.log("App: ", id);
       this.id = id;
       this.isPopUp = true;
+      this.isShadow = true;
     },
   },
 };
@@ -41,5 +48,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.shadow{
+  opacity: 0.5;
 }
 </style>

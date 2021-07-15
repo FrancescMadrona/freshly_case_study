@@ -231,6 +231,10 @@ a {
   margin-left: 4rem;
   margin-right: 5rem;
 }
+
+.dropdown{
+  z-index: 1;
+}
 </style>
 
 

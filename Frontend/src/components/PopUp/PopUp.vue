@@ -1,6 +1,57 @@
 <template>
-  <div>
-      <div>{{id}}</div>
+  <div class="disable-outside-clicks">
+    <div class="ui card">
+      <div class="content">
+        <i class="right floated close icon" @click="closePopUp()"></i>
+        <div class="header">REFERENCE: {{ order.reference }}</div>
+        <div class="description">
+          <p>
+            <table class="ui celled table">
+                <thead>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha</th>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>
+                        Fran
+                    </td>
+                    <td>
+                        Madrona
+                    </td>
+                    <td>
+                        21/05/32
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+          </p>
+        <p>
+            <table class="ui celled table">
+                <thead>
+                <th>Dirección</th>
+                <th>Ciudad</th>
+                <th>Pais</th>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>
+                        calle lorem
+                    </td>
+                    <td>
+                        Madrona
+                    </td>
+                    <td>
+                        21/05/32
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,13 +62,43 @@ export default {
   components: {},
 
   data() {
-    return {};
+    return {
+      order: [],
+    };
   },
-  methods: {},
+  methods: {
+    closePopUp() {
+      this.$emit("closePopUp");
+    },
+    getOrder(id) {
+      const uri = `http://localhost:3000/api/order/${id}`;
+      fetch(uri)
+        .then(async (response) => {
+          const data = await response.json();
+          // check for error response
+          if (!response.ok) {
+            // get error message from body or default to response statusText
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+          }
+          if (data) {
+            this.order = data.data[0];
+            console.log(this.order);
+          }
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+          console.error("There was an error!", error);
+        });
+    },
+  },
   created() {
-      console.log("POPUP->", this.id)
+    console.log("POPUP->", this.id);
+    this.getOrder(this.id);
   },
-  updated() {},
+  updated() {
+    //this.getOrder(this.id);
+  },
 };
 </script>
 
@@ -44,12 +125,20 @@ a {
   margin-right: 5rem;
 }
 
-tr.myRow:hover {
-  opacity: 1;
-  background-color: #c0c1ce !important;
+.card {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 50%;
 }
-tr.myRow {
-  text-align: center !important;
+
+.disable-outside-clicks {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
 }
 </style>
 
