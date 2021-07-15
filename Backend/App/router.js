@@ -31,33 +31,37 @@ router.use((err, req, res, next) => {
 
 
 //Get all products 
-router.get("/api/products", (req, res)=>{
+router.get("/api/products", (req, res) => {
     Order.getProducts(res);
 });
 //Get all products by order
-router.get("/api/products/order/:id", (req, res)=>{
+router.get("/api/products/order/:id", (req, res) => {
     Order.getProductsByOrderId(req, res);
 });
 //get all from one order.
-router.get("/api/order/:id", (req, res)=>{
+router.get("/api/order/:id", (req, res) => {
     Order.getOrderById(req, res);
 });
 
 //get all orders by status and country
-router.get("/api/orders/:status/:country", (req, res)=>{
+router.get("/api/orders/:status/:country", (req, res) => {
     Order.getOrders(req, res);
 });
 
 //get all status
-router.get("/api/status", (req, res)=>{
+router.get("/api/status", (req, res) => {
     Order.getAllStatus(res);
 });
 
 //get all countries
-router.get("/api/countries", (req, res)=>{
+router.get("/api/countries", (req, res) => {
     Order.getAllCountries(res);
 });
 
+//get all countries
+router.put("/api/order/new_status/:id", (req, res) => {
+    Order.updateStatus(req, res);
+});
 
 //declare the port we gonna use
 const port = process.env.PORT;

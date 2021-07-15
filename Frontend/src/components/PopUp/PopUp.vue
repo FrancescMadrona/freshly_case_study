@@ -71,7 +71,24 @@
         <p> 
             <table class="ui celled table">
                 <thead>
-                <th>Estado</th>
+                <th>
+                    <div class="ui compact menu">
+                        <div class="ui simple dropdown item">
+                            Estado
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                            <div class="item"updateStatus()>{{status[0].name}}</div>
+                            <div class="item">{{status[1].name}}</div>
+                            <div class="item">{{status[2].name}}</div>
+                            <div class="item">{{status[3].name}}</div>
+                            <div class="item">{{status[4].name}}</div>
+                            <div class="item">{{status[5].name}}</div>
+                            <div class="item">{{status[6].name}}</div>
+                            <div class="item">{{status[7].name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
                 <th>Precio Total</th>
                 </thead>
                 <tbody>
@@ -105,6 +122,7 @@ export default {
     return {
       order: [],
       products: [],
+      status: [],
     };
   },
   methods: {
@@ -124,7 +142,6 @@ export default {
           }
           if (data) {
             this.order = data.data[0];
-            console.log("order->", this.order);
           }
         })
         .catch((error) => {
@@ -152,12 +169,31 @@ export default {
           console.error("There was an error!", error);
         });
     },
+    getAllStatus() {
+      const uri = `http://localhost:3000/api/status`;
+      fetch(uri)
+        .then(async (response) => {
+          const data = await response.json();
+          // check for error response
+          if (!response.ok) {
+            // get error message from body or default to response statusText
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+          }
+          if (data) {
+            this.status = data.data;
+          }
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+          console.error("There was an error!", error);
+        });
+    },
   },
   created() {
+    this.getAllStatus();
     this.getOrder(this.id);
     this.getProducts(this.id);
-  },
-  updated() {
   },
 };
 </script>
