@@ -54,14 +54,12 @@ class Orders {
         );
     }
 
-    //Get all orders WHERE PRODUCTOS
-
-    //Get all orders 
-    getOrderByStatusAndCountry(req, res) {
-        if(req.params.status == "none"){
+    //Get all orders WHERE STATUS AND COUNTRY
+    getOrders(req, res) {
+        if (req.params.status == "none") {
             req.params.status = '%';
         }
-        if(req.params.country == "none"){
+        if (req.params.country == "none") {
             req.params.country = '%';
         }
         const query = `SELECT orders.id_order as 'id_order', reference, DATE_FORMAT(date_add, '%d/%m/%Y' ) date_add, customer.firstname, customer.lastname, address.address1, address.address2, address.city, country_lang.name as country, order_state_lang.name as 'current_state' from orders INNER JOIN customer on orders.id_customer=customer.id_customer INNER join address on orders.id_address_delivery=address.id_address LEFT join country_lang on address.id_country=country_lang.id_country inner join order_state_lang on orders.current_state=order_state_lang.id_order_state where order_state_lang.name like '${req.params.status}' and country_lang.name like '${req.params.country}'`;
@@ -72,15 +70,6 @@ class Orders {
         );
     }
 
-    //Get all orders WHERE STATUS NAME
-    getOrders(req, res) {
-        const query = `SELECT orders.id_order as 'id_order', reference, DATE_FORMAT(date_add, '%d/%m/%Y' ) date_add, customer.firstname, customer.lastname, address.address1, address.address2, address.city, country_lang.name as country, order_state_lang.name as 'current_state' from orders INNER JOIN customer on orders.id_customer=customer.id_customer INNER join address on orders.id_address_delivery=address.id_address LEFT join country_lang on address.id_country=country_lang.id_country inner join order_state_lang on orders.current_state=order_state_lang.id_order_state where order_state_lang.name = '${req.params.name}'`;
-        db.query(
-            query, (err, result) => {
-                this.queryResult(err, result, res);
-            }
-        );
-    }
 
     //Get all STATUS
     getAllStatus(res) {

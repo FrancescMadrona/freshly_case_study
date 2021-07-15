@@ -29,9 +29,7 @@ router.use((err, req, res, next) => {
 
 //Here I would like to extract the endpoints and put them in another file called endpoints.js and where i import the router with all the config.
 
-router.get("/api/orders", (req, res)=>{
-    Order.getOrders(res);
-});
+
 //Get all products 
 router.get("/api/products", (req, res)=>{
     Order.getProducts(res);
@@ -47,16 +45,7 @@ router.get("/api/order/:id", (req, res)=>{
 
 //get all orders by status and country
 router.get("/api/orders/:status/:country", (req, res)=>{
-    Order.getOrderByStatusAndCountry(req, res);
-});
-
-//get all orders by status name
-router.get("/api/orders/status/:name", (req, res)=>{
-    Order.getOrderByStatusName(req, res);
-});
-//get all orders by country
-router.get("/api/orders/country/:name", (req, res)=>{
-    Order.getOrderByCountryName(req, res);
+    Order.getOrders(req, res);
 });
 
 //get all status
@@ -69,19 +58,6 @@ router.get("/api/countries", (req, res)=>{
     Order.getAllCountries(res);
 });
 
-/*
-router.post('/api/note/post', (req, res) => {
-    Notes.postNote(req, res);
-});
-  
-router.post('/api/note/delete', (req, res) => {
-    Notes.deleteNote(req, res);
-});
-
-router.post('/api/note/update', (req, res) => {
-    Notes.updateNote(req, res);
-});
-*/
 
 //declare the port we gonna use
 const port = process.env.PORT;
