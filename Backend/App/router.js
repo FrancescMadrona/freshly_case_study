@@ -50,13 +50,18 @@ router.get("/api/orders/status/:name", (req, res)=>{
     Order.getOrderByStatusName(req, res);
 });
 //get all orders by country
-router.get("/api/orders/country/:id", (req, res)=>{
-    Order.getOrderByCountry(req, res);
+router.get("/api/orders/country/:name", (req, res)=>{
+    Order.getOrderByCountryName(req, res);
 });
 
 //get all status
 router.get("/api/status", (req, res)=>{
     Order.getAllStatus(res);
+});
+
+//get all countries
+router.get("/api/countries", (req, res)=>{
+    Order.getAllCountries(res);
 });
 
 /*
