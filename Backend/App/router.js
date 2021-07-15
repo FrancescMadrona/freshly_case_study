@@ -45,6 +45,11 @@ router.get("/api/order/:id", (req, res)=>{
     Order.getOrderById(req, res);
 });
 
+//get all orders by status and country
+router.get("/api/orders/:status/:country", (req, res)=>{
+    Order.getOrderByStatusAndCountry(req, res);
+});
+
 //get all orders by status name
 router.get("/api/orders/status/:name", (req, res)=>{
     Order.getOrderByStatusName(req, res);

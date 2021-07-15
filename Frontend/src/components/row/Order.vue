@@ -1,5 +1,5 @@
 <template>
-  <tr class="negative myRow">
+  <tr class="negative myRow" @click="displayInfo()">
     <!-- reference -->
     <td>{{ reference }}</td>
     <!-- date -->
@@ -16,8 +16,6 @@
     <td>{{ country }}</td>
     <!-- Status -->
     <td>{{ status }}</td>
-    <!-- + Info button -->
-    <td><i class="eye icon"></i></td>
   </tr>
 </template>
 
@@ -40,7 +38,11 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    displayInfo(){
+      console.log("hello")
+    }
+  },
   created() {
 
   },
@@ -73,7 +75,6 @@ a {
 
 tr.myRow:hover {
   opacity: 1;
-  /* transition: opacity 0.5s ease-in; */
   background-color:#c0c1ce !important;
 }
 
