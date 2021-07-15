@@ -77,6 +77,10 @@ tr.myRow:hover {
   opacity: 1;
   background-color:#c0c1ce !important;
 }
+tr.myRow{
+  text-align: center !important;
+
+}
 
 </style>
 
