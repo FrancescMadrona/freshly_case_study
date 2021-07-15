@@ -1,5 +1,5 @@
 <template>
-  <div>hello
+  <div>
       <div>{{id}}</div>
   </div>
 </template>
@@ -14,7 +14,9 @@ export default {
     return {};
   },
   methods: {},
-  created() {},
+  created() {
+      console.log("POPUP->", this.id)
+  },
   updated() {},
 };
 </script>

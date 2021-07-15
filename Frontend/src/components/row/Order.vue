@@ -39,9 +39,9 @@ export default {
     return {};
   },
   methods: {
-    displayInfo(){
+    triggerInfo(){
       console.log("order id:", this.id);
-      $emit("triggerInfo", this.id);
+      this.$emit("triggerInfo", this.id);
     }
   },
   created() {

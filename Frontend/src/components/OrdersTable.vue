@@ -87,6 +87,7 @@
           v-bind:city="order.city"
           v-bind:country="order.country"
           v-bind:status="order.current_state"
+          v-on:triggerInfo="triggerInfo"
         />
       </tbody>
     </table>
@@ -174,7 +175,6 @@ export default {
           console.error("There was an error!", error);
         });
     },
-
     countryFilter(country) {
       console.log(country);
       if (country == null) {
@@ -185,7 +185,6 @@ export default {
       }
       this.getOrders(this.currentStatus, country);
     },
-
     statusFilter(status) {
       console.log(status);
       if (status == null) {
@@ -196,6 +195,10 @@ export default {
       }
       this.getOrders(status, this.currentCountry);
     },
+    triggerInfo(id){
+      console.log("parent1->" , id)
+      this.$emit("triggerInfo", id)
+    }
   },
   created() {
     this.getAllCountries();
