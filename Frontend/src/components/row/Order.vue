@@ -1,5 +1,5 @@
 <template>
-  <tr class="negative">
+  <tr class="negative myRow">
     <!-- reference -->
     <td>{{ reference }}</td>
     <!-- date -->
@@ -71,10 +71,12 @@ a {
   margin-right: 5rem;
 }
 
-/*.a:hover {
-  opacity: 0.5;
-  transition: opacity 0.5s ease-in;
-}*/
+tr.myRow:hover {
+  opacity: 1;
+  /* transition: opacity 0.5s ease-in; */
+  background-color:#c0c1ce !important;
+}
+
 </style>
 
 

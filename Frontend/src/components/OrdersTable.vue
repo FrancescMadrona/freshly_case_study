@@ -3,24 +3,24 @@
     <table class="ui celled table">
       <thead>
         <tr>
-          <th>Reference</th>
-          <th>Date</th>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Address</th>
-          <th>City</th>
-          <th>Country</th>
+          <th>Referencia</th>
+          <th>Fecha</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Dirección</th>
+          <th>Ciudad</th>
+          <th>País</th>
           <th>
             <select class="ui dropdown">
-              <option value="">Status</option>
-              <option value="1" @click="filterByStatus(status[0].name)">{{ status[0].name }}</option>
-              <option value="1" @click="filterByStatus(status[1].name)">{{ status[1].name }}</option>
-              <option value="1" @click="filterByStatus(status[2].name)">{{ status[2].name }}</option>
-              <option value="1" @click="filterByStatus(status[3].name)">{{ status[3].name }}</option>
-              <option value="1" @click="filterByStatus(status[4].name)">{{ status[4].name }}</option>
-              <option value="1" @click="filterByStatus(status[5].name)">{{ status[5].name }}</option>
-              <option value="1" @click="filterByStatus(status[6].name)">{{ status[6].name }}</option>
-              <option value="1" @click="filterByStatus(status[7].name)">{{ status[7].name }}</option>
+              <option value="" @click="filterByStatus(status[2].name)">Estado ({{status[2].name}})</option>
+              <option value="1" @click="getAllOrders()">Todos los Estados</option>
+              <option value="2" @click="filterByStatus(status[0].name)">Estado ({{ status[0].name }})</option>
+              <option value="3" @click="filterByStatus(status[1].name)">Estado ({{ status[1].name }})</option>
+              <option value="4" @click="filterByStatus(status[3].name)">Estado ({{ status[3].name }})</option>
+              <option value="5" @click="filterByStatus(status[4].name)">Estado ({{ status[4].name }})</option>
+              <option value="6" @click="filterByStatus(status[5].name)">Estado ({{ status[5].name }})</option>
+              <option value="7" @click="filterByStatus(status[6].name)">Estado ({{ status[6].name }})</option>
+              <option value="8" @click="filterByStatus(status[7].name)">Estado ({{ status[7].name }})</option>
             </select>
           </th>
           <th>+ Info</th>
@@ -102,8 +102,8 @@ export default {
         });
     },
 
-    filterByStatus() {
-      const uri = "http://localhost:3000/api/status/";
+    filterByStatus(status) {
+      const uri = `http://localhost:3000/api/orders/status/${status}`;
       fetch(uri)
         .then(async (response) => {
           const data = await response.json();
@@ -114,7 +114,7 @@ export default {
             return Promise.reject(error);
           }
           if (data) {
-            this.status = data.data;
+            this.orders = data.data;
             console.log(this.status);
           }
         })
@@ -125,8 +125,8 @@ export default {
     },
   },
   created() {
-    this.getAllOrders();
     this.getAllStatus();
+    this.filterByStatus("preparacion en proceso");
 
     //
   },
@@ -157,10 +157,7 @@ a {
   margin-right: 5rem;
 }
 
-/*.a:hover {
-  opacity: 0.5;
-  transition: opacity 0.5s ease-in;
-}*/
+
 </style>
 
 
