@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <OrdersTable/>
+    <PopUp/>
   </div>
 </template>
 
 <script>
 import OrdersTable from './components/OrdersTable.vue'
+import PopUp from './components/PopUp/PopUp.vue'
 
 export default {
   name: 'App',
   components: {
-    OrdersTable
+    OrdersTable,
+    PopUp,
   },
 }
 </script>

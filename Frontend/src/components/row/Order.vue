@@ -1,5 +1,5 @@
 <template>
-  <tr class="negative myRow" @click="displayInfo()">
+  <tr class="negative myRow" @click="triggerInfo()">
     <!-- reference -->
     <td>{{ reference }}</td>
     <!-- date -->
@@ -40,7 +40,8 @@ export default {
   },
   methods: {
     displayInfo(){
-      console.log("hello")
+      console.log("order id:", this.id);
+      $emit("triggerInfo", this.id);
     }
   },
   created() {
@@ -58,7 +59,7 @@ h2 {
 }
 ul {
   list-style-type: none;
-  padding: 0;
+  padding: 0; 
 }
 li {
   display: inline-block;
