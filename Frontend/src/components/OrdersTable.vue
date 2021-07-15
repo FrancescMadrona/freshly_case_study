@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <table class="ui celled table">
+    <table class="ui celled padded table">
       <thead>
         <tr>
           <th>Referencia</th>
@@ -108,7 +108,7 @@ export default {
       status: [],
       countries: [],
       currentCountry: "none",
-      currentStatus: "none",
+      currentStatus: "preparacion en proceso",
     };
   },
   methods: {

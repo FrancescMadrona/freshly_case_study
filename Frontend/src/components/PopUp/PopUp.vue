@@ -3,7 +3,7 @@
     <div class="ui card">
       <div class="content">
         <i class="right floated close icon" @click="closePopUp()"></i>
-        <div class="header">REFERENCE: {{ order.reference }}</div>
+        <div class="header">REFERENCIA: {{ order.reference }}</div>
         <div class="description">
           <p>
             <table class="ui celled table">
@@ -15,13 +15,13 @@
                 <tbody>
                     <tr>
                     <td>
-                        Fran
+                        {{order.firstname}}
                     </td>
                     <td>
-                        Madrona
+                        {{order.lastname}}
                     </td>
                     <td>
-                        21/05/32
+                        {{order.date_add}}
                     </td>
                     </tr>
                 </tbody>
@@ -30,44 +30,26 @@
         <p>
             <table class="ui celled table">
                 <thead>
-                <th>Dirección 1</th>
+                <th>Dirección</th>
                 <th>Ciudad</th>
                 <th>Pais</th>
                 </thead>
                 <tbody>
                     <tr>
                     <td>
-                        calle lorem
+                        {{order.address1}}
                     </td>
                     <td>
-                        Barcelona
+                        {{order.city}}
                     </td>
                     <td>
-                        España
+                        {{order.country}}
                     </td>
                     </tr>
-                </tbody>
-            </table>
-        </p>
-        <p>
-            <table class="ui celled table">
-                <thead>
-                <th>Dirección 2</th>
-                <th>Ciudad</th>
-                <th>Pais</th>
-                </thead>
-                <tbody>
                     <tr>
                     <td>
-                        sandasn
-                    </td>
-                    <td>
-                        Barcelona
-                    </td>
-                    <td>
-                        España
-                    </td>
-                    </tr>
+                        {{order.address2}}
+                    </td></tr>
                 </tbody>
             </table>
         </p>
@@ -95,10 +77,10 @@
                 <tbody>
                     <tr>
                     <td>
-                        Cancelado
+                        {{order.current_state}}
                     </td>
                     <td>
-                       200.00€
+                       {{order.total_paid}} €
                     </td>
                     </tr>
                 </tbody>
@@ -142,6 +124,7 @@ export default {
           }
           if (data) {
             this.order = data.data[0];
+            console.log("order->", this.order);
           }
         })
         .catch((error) => {
@@ -162,11 +145,6 @@ export default {
           }
           if (data) {
             this.products = data.data;
-            console.log(this.products);
-            console.log("one prodc->", this.products[0].product);
-            console.log("one quantity->", this.products[0].quantity);
-
-
           }
         })
         .catch((error) => {
@@ -180,7 +158,6 @@ export default {
     this.getProducts(this.id);
   },
   updated() {
-    //this.getOrder(this.id);
   },
 };
 </script>
