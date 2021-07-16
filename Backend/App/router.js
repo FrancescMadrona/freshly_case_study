@@ -26,10 +26,6 @@ router.use((err, req, res, next) => {
     next();
 });
 
-
-//Here I would like to extract the endpoints and put them in another file called endpoints.js and where i import the router with all the config.
-
-
 //Get all products 
 router.get("/api/products", (req, res) => {
     Order.getProducts(res);
@@ -63,6 +59,11 @@ router.put("/api/order/new_status/:id", (req, res) => {
     Order.updateStatus(req, res);
 });
 
+//insert NEW order
+router.post("/api/new_order", (req, res) => {
+    Order.newOrder(req, res);
+});
+
 //declare the port we gonna use
 const port = process.env.PORT;
 
@@ -70,4 +71,4 @@ const port = process.env.PORT;
 router.listen(port, () => console.log("Listening on port: " + port));
 
 
-// module.exports = router;
+module.exports = router;

@@ -94,9 +94,9 @@
             </table>
         </p>
             <div class="ui buttons">
-                <button class="ui button" @click="closePopUp()">Cancel</button>
-                <div class="or"></div>
-                <button class="ui positive button" @click="updateStatusDB(selected)">Save</button>
+                <button class="ui button" @click="closePopUp()">Cancelar</button>
+                <div class="or" data-text="o"></div>
+                <button class="ui positive button" @click="updateStatusDB(selected)">Guardar</button>
             </div>
         </div>
       </div>
@@ -186,26 +186,26 @@ export default {
           console.error("There was an error!", error);
         });
     },
-    selectStatusId(status){
-        switch(status){
-            case "Pago pendiente":
-                return 1;
-            case "Pago aceptado":
-                return 2;
-            case "Preparación en proceso":
-                return 3;
-            case "Enviado":
-                return 4;
-            case "Entregado":
-                return 5;
-            case "Cancelado":
-                return 6;
-            case "Reembolso":
-                return 7;
-            default: //"error en el pago"
-                return 8;
-        }
-
+    selectStatusId(status) {
+      switch (status) {
+        case "Pago pendiente":
+          return 1;
+        case "Pago aceptado":
+          return 2;
+        case "Preparación en proceso":
+          return 3;
+        case "Enviado":
+          return 4;
+        case "Entregado":
+          return 5;
+        case "Cancelado":
+          return 6;
+        case "Reembolso":
+          return 7;
+        default:
+          //"error en el pago"
+          return 8;
+      }
     },
     async updateStatusDB(status) {
       const status_id = this.selectStatusId(status);
@@ -231,7 +231,7 @@ export default {
       } else {
         alert("¡ATENCION! ¡No hemos podido actualizar el pedido!");
       }
-    },  
+    },
   },
   created() {
     this.getAllStatus();
@@ -269,6 +269,8 @@ a {
   left: 50%;
   transform: translate(-50%, 0);
   /* top: 50%; */
+  overflow-x: scroll;
+  max-height: 100%;
 }
 
 .disable-outside-clicks {

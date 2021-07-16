@@ -3,10 +3,6 @@ const db = require("./DBconnection");
 
 
 class Orders {
-    constructor() {
-
-    }
-
     //CREATE THE FUNCTIONS
 
     //Send the response and report the error. This prevent crashing the api server if something went wrong.
@@ -92,6 +88,20 @@ class Orders {
     //UPDATE ORDER STATUS
     updateStatus(req, res) {
         const query = `update orders set current_state = ${req.body.id} where id_order = ${req.params.id}`;
+        db.query(
+            query, (err, result) => {
+                this.queryResult(err, result, res);
+            }
+        );
+    }
+
+    // query = insert into orders (reference, id_customer, id_address_delivery, current_state, total_paid, date_add)
+    // VALUES (00000, 92, 92, 3, 25, '2021-03-27 00:00:00')
+
+    //NEW ORDER
+    newOrder(req, res) {
+        const status = "3";
+        const query = `insert into orders (reference, id_customer, id_address_delivery, current_state, total_paid, date_add) VALUES (${req.body.reference}, ${req.body.id_customer}, ${req.body.id_address}, ${status}, ${req.body.total_paid}, '${req.body.date_add}')`;
         db.query(
             query, (err, result) => {
                 this.queryResult(err, result, res);

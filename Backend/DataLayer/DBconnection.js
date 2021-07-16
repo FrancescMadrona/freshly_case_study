@@ -15,12 +15,3 @@ const db = mysql.createConnection({
 
 //THEN EXPORT THE DB CONNECTION
 module.exports = db;
-
-
-
-
-
-
-
-
-

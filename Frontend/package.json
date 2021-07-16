@@ -1,7 +1,7 @@
 {
-  "name": "notebook-project",
+  "name": "Freshly-Study-Case",
   "version": "1.0.0",
-  "description": "notebook project with vue",
+  "description": "Freshly Study case",
   "author": "FrancescMadrona <madrona.francesc@epitech.eu>",
   "private": true,
   "scripts": {

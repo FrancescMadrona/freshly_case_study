@@ -96,6 +96,7 @@
 
 <script>
 import Order from "./row/Order.vue";
+
 export default {
   name: "OrdersTable",
   props: ["updTable"],
@@ -115,12 +116,6 @@ export default {
   watch: {
     updTable() {
       if (this.updTable == true) {
-        console.log(
-          "status ->",
-          this.currentStatus,
-          "country->",
-          this.currentCountry
-        );
         this.getOrders(this.currentStatus, this.currentCountry);
         this.$emit("initUpdTable", false);
       }
@@ -191,7 +186,6 @@ export default {
         });
     },
     countryFilter(country) {
-      console.log(country);
       if (country == null) {
         country = "none";
         this.currentCountry = "none";
@@ -201,7 +195,6 @@ export default {
       this.getOrders(this.currentStatus, country);
     },
     statusFilter(status) {
-      console.log(status);
       if (status == null) {
         status = "none";
         this.currentStatus = "none";

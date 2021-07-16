@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     triggerInfo(){
-      console.log("order id:", this.id);
       this.$emit("triggerInfo", this.id);
     }
   },
@@ -77,6 +76,7 @@ a {
 tr.myRow:hover {
   opacity: 1;
   background-color:#c0c1ce !important;
+  cursor: pointer;
 }
 tr.myRow{
   text-align: center !important;
