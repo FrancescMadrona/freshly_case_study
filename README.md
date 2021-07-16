@@ -30,3 +30,5 @@ npm install && npm start
 #Install dependecies and start the application at port 8080:
 npm install && npm start
 ```
+
+:bookmark: MORE INFROMATION IN THE BACKEND README
