@@ -138,7 +138,7 @@ export default {
 
       if (result.status === 200) {
         alert(
-          `EL NUEVO PEDIDO CON REFERENCIA #00000 HA SIDO CORRECTAMENTE REGISTRADO`
+          `EL NUEVO PEDIDO CON REFERENCIA #00000 HA SIDO CORRECTAMENTE REGISTRADO: PREPARACIÓN EN PROCESO`
         );
         this.$emit("updateOrders");
       } else {
