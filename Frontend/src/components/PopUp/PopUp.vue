@@ -227,6 +227,7 @@ export default {
         alert(
           `PEDIDO CON REFERENCIA ${this.order.reference} ha sido actualizado a ${status}`
         );
+        this.$emit("updateOrders");
       } else {
         alert("¡ATENCION! ¡No hemos podido actualizar el pedido!");
       }

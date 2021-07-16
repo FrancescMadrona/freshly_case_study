@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div v-if="isPopUp">
-      <PopUp v-bind:id="id" v-on:closePopUp="closePopUp" />
+      <PopUp v-bind:id="id" v-on:closePopUp="closePopUp" v-on:updateOrders="updateOrders" />
     </div>
     <div class="container" v-bind:class="{shadow: isShadow}">
-      <OrdersTable v-on:triggerInfo="triggerInfo" />
+      <OrdersTable v-on:triggerInfo="triggerInfo" v-bind:updTable="updTable" />
     </div>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
       id: -1,
       isPopUp: false,
       isShadow: false,
+      updTable: false,
     };
   },
   methods: {
@@ -36,6 +37,10 @@ export default {
       this.isPopUp = true;
       this.isShadow = true;
     },
+    updateOrders(){
+      console.log("hello from APP")
+      this.updTable = true;
+    }
   },
 };
 </script>

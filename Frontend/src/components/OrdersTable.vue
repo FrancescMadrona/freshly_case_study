@@ -98,6 +98,7 @@
 import Order from "./row/Order.vue";
 export default {
   name: "OrdersTable",
+  props: ["updTable"],
   components: {
     Order,
   },
@@ -110,6 +111,11 @@ export default {
       currentCountry: "none",
       currentStatus: "preparacion en proceso",
     };
+  },
+  watch: {
+    updTable() {
+      this.getOrders(this.currentStatus, this.currentCountry);
+    },
   },
   methods: {
     //Get all orders from DB
@@ -195,11 +201,14 @@ export default {
       }
       this.getOrders(status, this.currentCountry);
     },
-    triggerInfo(id){
-      console.log("parent1->" , id)
-      this.$emit("triggerInfo", id)
-    }
+    triggerInfo(id) {
+      this.$emit("triggerInfo", id);
+    },
+    updateTable() {
+      console.log("heloooooo from orderstable!!!");
+    },
   },
+
   created() {
     this.getAllCountries();
     this.getAllStatus();
@@ -232,7 +241,7 @@ a {
   margin-right: 5rem;
 }
 
-.dropdown{
+.dropdown {
   z-index: 1;
 }
 </style>
