@@ -4,7 +4,7 @@
       <PopUp v-bind:id="id" v-on:closePopUp="closePopUp" v-on:updateOrders="updateOrders" />
     </div>
     <div class="container" v-bind:class="{shadow: isShadow}">
-      <OrdersTable v-on:triggerInfo="triggerInfo" v-bind:updTable="updTable" />
+      <OrdersTable v-on:triggerInfo="triggerInfo" v-bind:updTable="updTable" v-on:initUpdTable="initUpdTable"/>
     </div>
   </div>
 </template>
@@ -40,6 +40,10 @@ export default {
     updateOrders(){
       console.log("hello from APP")
       this.updTable = true;
+    },
+    initUpdTable(bool){
+      console.log("i have initialized upd");
+      this.updTable = bool;
     }
   },
 };

@@ -114,7 +114,16 @@ export default {
   },
   watch: {
     updTable() {
-      this.getOrders(this.currentStatus, this.currentCountry);
+      if (this.updTable == true) {
+        console.log(
+          "status ->",
+          this.currentStatus,
+          "country->",
+          this.currentCountry
+        );
+        this.getOrders(this.currentStatus, this.currentCountry);
+        this.$emit("initUpdTable", false);
+      }
     },
   },
   methods: {
@@ -203,9 +212,6 @@ export default {
     },
     triggerInfo(id) {
       this.$emit("triggerInfo", id);
-    },
-    updateTable() {
-      console.log("heloooooo from orderstable!!!");
     },
   },
 
