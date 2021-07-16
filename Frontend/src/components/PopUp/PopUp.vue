@@ -79,10 +79,10 @@
                 <tbody>
                     <tr>
                     <td>
-                        <select v-model="selected.name">
+                        <select v-model="selected">
                             <option value="" selected disabled >{{this.selected}}</option>
                             <option v-for="state in status" v-bind:key="state.name">
-                                <!-- {{ state.name }} How can I send the ID as model without showing it?? -->
+                                {{ state.name }}
                             </option>
                         </select>
                     </td>
@@ -96,7 +96,7 @@
             <div class="ui buttons">
                 <button class="ui button" @click="closePopUp()">Cancel</button>
                 <div class="or"></div>
-                <button class="ui positive button" @click="updateStatusDB(id, selected)">Save</button>
+                <button class="ui positive button" @click="updateStatusDB(selected)">Save</button>
             </div>
         </div>
       </div>
@@ -118,7 +118,7 @@ export default {
       order: [],
       products: [],
       status: [],
-      selected: {},
+      selected: "preparacion en proceso",
     };
   },
   methods: {
@@ -138,7 +138,7 @@ export default {
           }
           if (data) {
             this.order = data.data[0];
-            this.selected.name = this.order.current_state;
+            this.selected = this.order.current_state;
           }
         })
         .catch((error) => {
@@ -186,9 +186,31 @@ export default {
           console.error("There was an error!", error);
         });
     },
-    async updateStatusDB(id, status) {
+    selectStatusId(status){
+        switch(status){
+            case "Pago pendiente":
+                return 1;
+            case "Pago aceptado":
+                return 2;
+            case "Preparación en proceso":
+                return 3;
+            case "Enviado":
+                return 4;
+            case "Entregado":
+                return 5;
+            case "Cancelado":
+                return 6;
+            case "Reembolso":
+                return 7;
+            default: //"error en el pago"
+                return 8;
+        }
+
+    },
+    async updateStatusDB(status) {
+      const status_id = this.selectStatusId(status);
       const order_id = this.id;
-      const obj = { id: id };
+      const obj = { id: status_id };
       const uri = `http://localhost:3000/api/order/new_status/${order_id}`;
       const result = await fetch(uri, {
         method: "put",
@@ -208,10 +230,7 @@ export default {
       } else {
         alert("¡ATENCION! ¡No hemos podido actualizar el pedido!");
       }
-    },
-    console(id, status){
-        console.log("id->", id, "status->", status);
-    }
+    },  
   },
   created() {
     this.getAllStatus();

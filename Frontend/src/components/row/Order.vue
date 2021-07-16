@@ -1,5 +1,5 @@
 <template>
-  <tr class="negative myRow" @click="triggerInfo()">
+  <tr class="myRow" @click="triggerInfo()">
     <!-- reference -->
     <td>{{ reference }}</td>
     <!-- date -->
