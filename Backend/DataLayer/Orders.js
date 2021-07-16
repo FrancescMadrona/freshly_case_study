@@ -70,7 +70,6 @@ class Orders {
         );
     }
 
-
     //Get all STATUS
     getAllStatus(res) {
         const query = `SELECT id_order_state as id, name FROM order_state_lang`;
@@ -92,7 +91,7 @@ class Orders {
     }
     //UPDATE ORDER STATUS
     updateStatus(req, res) {
-        const query = `SELECT * FROM country_langupdate orders inner join order_state_lang on orders.current_state=order_state_lang.id_order_state set orders.current_state =  1 where orders.id_order = 1`;
+        const query = `update orders set current_state = ${req.body.id} where id_order = ${req.params.id}`;
         db.query(
             query, (err, result) => {
                 this.queryResult(err, result, res);

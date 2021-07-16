@@ -72,29 +72,19 @@
             <table class="ui celled table">
                 <thead>
                 <th>
-                    <div class="ui compact menu">
-                        <div class="ui simple dropdown item">
-                            Estado
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                            <div class="item"updateStatus()>{{status[0].name}}</div>
-                            <div class="item">{{status[1].name}}</div>
-                            <div class="item">{{status[2].name}}</div>
-                            <div class="item">{{status[3].name}}</div>
-                            <div class="item">{{status[4].name}}</div>
-                            <div class="item">{{status[5].name}}</div>
-                            <div class="item">{{status[6].name}}</div>
-                            <div class="item">{{status[7].name}}</div>
-                            </div>
-                        </div>
-                    </div>
+                    Estado
                 </th>
                 <th>Precio Total</th>
                 </thead>
                 <tbody>
                     <tr>
                     <td>
-                        {{order.current_state}}
+                        <select v-model="selected.name">
+                            <option value="" selected disabled >{{this.selected}}</option>
+                            <option v-for="state in status" v-bind:key="state.name">
+                                <!-- {{ state.name }} How can I send the ID as model without showing it?? -->
+                            </option>
+                        </select>
                     </td>
                     <td>
                        {{order.total_paid}} €
@@ -103,6 +93,11 @@
                 </tbody>
             </table>
         </p>
+            <div class="ui buttons">
+                <button class="ui button" @click="closePopUp()">Cancel</button>
+                <div class="or"></div>
+                <button class="ui positive button" @click="updateStatusDB(id, selected)">Save</button>
+            </div>
         </div>
       </div>
     </div>
@@ -123,6 +118,7 @@ export default {
       order: [],
       products: [],
       status: [],
+      selected: {},
     };
   },
   methods: {
@@ -142,6 +138,7 @@ export default {
           }
           if (data) {
             this.order = data.data[0];
+            this.selected.name = this.order.current_state;
           }
         })
         .catch((error) => {
@@ -189,6 +186,32 @@ export default {
           console.error("There was an error!", error);
         });
     },
+    async updateStatusDB(id, status) {
+      const order_id = this.id;
+      const obj = { id: id };
+      const uri = `http://localhost:3000/api/order/new_status/${order_id}`;
+      const result = await fetch(uri, {
+        method: "put",
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "omit", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      });
+
+      if (result.status === 200) {
+        alert(
+          `PEDIDO CON REFERENCIA ${this.order.reference} ha sido actualizado a ${status}`
+        );
+      } else {
+        alert("¡ATENCION! ¡No hemos podido actualizar el pedido!");
+      }
+    },
+    console(id, status){
+        console.log("id->", id, "status->", status);
+    }
   },
   created() {
     this.getAllStatus();

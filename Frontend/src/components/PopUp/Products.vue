@@ -16,7 +16,6 @@ export default {
   },
   methods: {},
   created() {
-      console.log("products->>", product)
   },
   updated() {
   },
